@@ -1,0 +1,86 @@
+:launchURL: https://developers.redhat.com/launch
+
+= Health Check - Fuse Booster
+
+== Overview
+Demonstrates how the Kubernetes health checks work to determine if a container is still alive (the liveness of the container) and ready to serve the traffic for the HTTP endpoints of the application (the readiness of the container).
+
+To demonstrate this behavior, the application configures a `/health` HTTP endpoint, which is used by Kubernetes to issue HTTP requests. If the container is still alive—​which means the Health HTTP endpoint is able to reply the management platform will receive HTTP code 200 as a response, and no further action is taken. If the HTTP endpoint stops returning a 200 response, the platform will restarts the pod.
+                
+== Deployment options
+
+This booster can run in the following modes:
+
+* Standalone on your machine (altough there will not be an automatich mechanism to restart your application when needed)
+* Single-node OpenShift cluster
+* OpenShift Online at link:{launchURL}[]
+
+The most effective way to demonstrate the booster is to deploy and run the project on OpenShift.
+For more details about running this booster on a single-node OpenShift cluster, CI/CD deployments, as well as the rest of the runtime, see the link:http://appdev.openshift.io/docs/spring-boot-runtime.html[Spring Boot Runtime Guide].
+
+IMPORTANT: This booster requires Java 8 JDK or greater and Maven 3.3.x or greater.
+
+== Running the booster standalone on your machine
+You can run this booster as a standalone project on your local machine:
+
+. Download the project and extract the archive on your local filesystem.
+. Build the project:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd PROJECT_DIR
+$ mvn clean package
+----
+. then run the services as follows:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn spring-boot:run
+----
+. Visit link:http://localhost:8080[] and follow the instructions on that page.
+
+IMPORTANT: there will not be an automatich mechanism to restart your application when needed since is not running in a managed container platform.
+
+== Running the booster on a single-node OpenShift cluster
+If you have a single-node OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your booster there.
+A single-node OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+
+To deploy your booster to a running single-node OpenShift cluster:
+
+. Download the project and extract the archive on your local filesystem.
+
+. Log in to your OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u developer -p developer
+----
+
+. Create a new OpenShift project for the booster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project MY_PROJECT_NAME
+----
+
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests fabric8:deploy -Popenshift
+----
+
+. In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
+Wait until you can see that the pod for the `fuse-health-check-booster` application has started up.
+
+. Just above the entry for the `fuse-health-check-booster` application on the `Overview` page, there is a URL of the form `http://fuse-health-check-booster-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io`.
+Click on the URL to access the greetings service application and follow the instructions on that page.
+
+== Running the booster on OpenShift Online
+You can deploy the circuit breaker booster directly to OpenShift Online when you create the project at link:{launchURL}[].
+
+. Visit link:{launchURL}[].
+. At the *Deployment step*, select *Use OpenShift Online*.
+. Follow the on-screen instructions to create a new *Health Check* project using the *Fuse* runtime.
+
+NOTE: As part of the process of creating this booster, link:{launchURL}[] sets up a project with a CI/CD deployment of this booster. You can see the status of this deployment in your Single-node OpenShift Cluster or OpenShift Online Web Console.
