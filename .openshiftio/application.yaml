@@ -38,7 +38,7 @@ parameters:
 - name: BUILDER_IMAGE_NAME
   description: Name of the image to use as a builder image
   displayName: Builder Image Name
-  value: 'fabric8/s2i-java:latest'
+  value: 'registry.access.redhat.com/jboss-fuse-6/fis-java-openshift:1.0'
   required: true
 objects:
 - apiVersion: v1
@@ -47,13 +47,13 @@ objects:
     name: fuse-java-openshift
   spec:
     tags:
-    - name: "latest"
+    - name: "1.0"
       annotations:
         description: Fabric8 Java S2I images.
         iconClass: icon-jboss
         supports: 'jboss-fuse:6.2.1,java:8,xpaas:1.2'
         tags: 'builder,jboss-fuse,java,xpaas,hidden'
-        version: 'latest'
+        version: '1.0'
       from:
         kind: DockerImage
         name: ${BUILDER_IMAGE_NAME}
@@ -100,7 +100,7 @@ objects:
         forcePull: true
         from:
           kind: ImageStreamTag
-          name: fuse-java-openshift:latest
+          name: fuse-java-openshift:1.0
         incremental: true
       type: Source
     triggers:
