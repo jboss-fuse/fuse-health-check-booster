@@ -11,7 +11,7 @@ To demonstrate this behavior, the application configures a `/health` HTTP endpoi
 
 This booster can run in the following modes:
 
-* Standalone on your machine (altough there will not be an automatich mechanism to restart your application when needed)
+* Standalone on your machine (although there will not be an automatic mechanism to restart your application when needed)
 * Single-node OpenShift cluster
 * OpenShift Online at link:{launchURL}[]
 
