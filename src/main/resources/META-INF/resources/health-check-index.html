@@ -17,7 +17,7 @@
             <p class="lead">
                 To demonstrate this behavior, this booster application configures a <code>/health</code> HTTP endpoint that Kubernetes uses to issue HTTP requests. If the container is alive then the Health HTTP endpoint returns HTTP code 200 as a response and Kubernetes takes no further action. If the HTTP endpoint stops returning a 200 response, Kubernetes restarts the container pod.</p>
             <p class="lead">
-                This page invokes the Greetings Service every five seconds.</p>
+                This page invokes the Greeting Service every five seconds.</p>
             <p class="lead">Click the <code>Stop Camel Context</code> button. The camel context stops and the HTTP endpoint stops returning a 200 response. The Greeting Service application returns a message that the service is not available.</p>
             <p class="lead">Kubernetes restarts the pod and then the HTTP endpoint returns HTTP code 200.</p>
               
