@@ -4,7 +4,7 @@
 = Health Check - Fuse Booster
 
 == Overview
-This Fuse booster demonstrates how to use the Kubernetes health check to determine whether a container is alive and ready to serve the traffic for the HTTP endpoints of an application.
+This Red Hat Fuse booster demonstrates how to use the Kubernetes health check to determine whether a container is alive and ready to serve the traffic for the HTTP endpoints of an application.
 
 The Health Check booster configures a `/health` HTTP endpoint that Kubernetes uses to issue HTTP requests. If the container is alive then the Health HTTP endpoint returns HTTP code 200 as a response and Kubernetes takes no further action. If the HTTP endpoint stops returning a 200 response, Kubernetes restarts the container pod.
                 
@@ -46,11 +46,11 @@ $ oc login -u developer -p developer
 $ oc new-project MY_PROJECT_NAME
 ----
 
-. Change the directory to the folder that contains the extracted booster application (for example, `my_openshift/fuse-health-check-booster-master`):
+. Change the directory to the folder that contains the extracted booster application (for example, `my_openshift/fuse-health-check-booster`):
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ cd my_openshift/fuse-health-check-booster-master
+$ cd my_openshift/fuse-health-check-booster
 ----
 
 . Build and deploy the project to the OpenShift cluster:
@@ -61,7 +61,7 @@ $ mvn clean -DskipTests fabric8:deploy -Popenshift
 ----
 
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
-Wait until you can see that the pod for the `fuse-health-check-booster` application has started up.
+Wait until you can see that the pod for the `fuse-health-check-booster` application has started.
 
 . On the project's `Overview` page, locate the URL for the `fuse-health-check-booster` application. The URL uses this form: `http://fuse-health-check-booster-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io`.
 
@@ -118,6 +118,8 @@ NOTE: As part of the process of creating this booster, link:{launchURL}[] sets u
 
 == Running the booster standalone on your machine
 
+IMPORTANT: When running the booster in this mode, since it is not running in a managed container platform, the application does not automatically restart when it stops. The most effective way to use this booster is to deploy and run the project on OpenShift.
+
 To run this booster as a standalone project on your local machine:
 
 . Download the project and extract the archive on your local filesystem.
@@ -136,5 +138,5 @@ $ mvn spring-boot:run
 ----
 . Go to link:http://localhost:8080[] and then follow the instructions on that page.
 
-IMPORTANT: When running the booster in this mode, since it is not running in a managed container platform, the application does not automatically restart when it stops.
+
 
