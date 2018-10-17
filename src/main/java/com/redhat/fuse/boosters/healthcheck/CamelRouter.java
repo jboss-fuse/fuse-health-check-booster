@@ -19,7 +19,7 @@ public class CamelRouter extends RouteBuilder {
             .component("servlet")
             .bindingMode(RestBindingMode.json);
         
-        rest("/greetings/").description("Greeting to {name}")
+        rest("/greetings").description("Greeting to {name}")
             .get("/{name}").outType(Greetings.class)
                 .route().routeId("greeting-api")
                 .to("direct:greetingsImpl");
