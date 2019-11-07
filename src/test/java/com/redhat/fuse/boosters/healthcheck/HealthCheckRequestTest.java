@@ -26,14 +26,14 @@ public class HealthCheckRequestTest {
 
     @Test
     public void healthShouldReturnOkMessage() throws Exception {
-        Assert.assertEquals( "{\"status\":\"UP\"}", this.restTemplate.getForObject("http://localhost:" + port + "/health", String.class));
+        Assert.assertEquals( "{\"status\":\"UP\"}", this.restTemplate.getForObject("http://localhost:" + port + "/actuator/health", String.class));
     }
 
     @Test
     public void killSwitchShouldCauseHealthKo() throws Exception {
-        Assert.assertEquals( "{\"status\":\"UP\"}", this.restTemplate.getForObject("http://localhost:" + port + "/health", String.class));
+        Assert.assertEquals( "{\"status\":\"UP\"}", this.restTemplate.getForObject("http://localhost:" + port + "/actuator/health", String.class));
         this.restTemplate.getForObject( "http://localhost:" + port + "/killswitch", String.class );
         Thread.sleep(2000);
-        Assert.assertEquals( "{\"status\":\"DOWN\"}", this.restTemplate.getForObject("http://localhost:" + port + "/health", String.class));
+        Assert.assertEquals( "{\"status\":\"DOWN\"}", this.restTemplate.getForObject("http://localhost:" + port + "/actuator/health", String.class));
     }
 }
